@@ -6,6 +6,8 @@ import com.atguigu.springcloud.service.PaymentService;
 import com.sun.corba.se.impl.orbutil.ObjectUtility;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,7 @@ import org.springframework.web.context.annotation.RequestScope;
 import sun.rmi.runtime.Log;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -22,6 +25,9 @@ public class PaymentController {
 
     @Value("${server.port}")
     private String serverPort;
+
+    @Resource
+    private DiscoveryClient discoveryClient;
 
     @PostMapping(value = "/payment/create")
     @ResponseBody
@@ -72,5 +78,18 @@ public class PaymentController {
         }
         log.info(commonResult.toString());
         return commonResult;
+    }
+
+    @GetMapping(value = "/payment/discovery")
+    public Object discovery(){
+        List<String> services = discoveryClient.getServices();
+        for (String element : services) {
+            log.info("***** element:"+element);
+        }
+        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
+        for (ServiceInstance instance : instances) {
+            log.info(instance.getServiceId()+"\t"+instance.getHost()+"\t"+instance.getPort()+"\t"+instance.getUri());
+        }
+        return this.discoveryClient;
     }
 }
