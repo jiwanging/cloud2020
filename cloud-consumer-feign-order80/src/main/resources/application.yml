@@ -1,0 +1,19 @@
+#项目端口配置
+server:
+  port: 80
+#eurake配置
+eureka:
+  client:
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka, http://eureka7002.com:7002/eureka
+
+#fegin的超时配置
+ribbon:
+  ReadTimeout: 5000
+  ConnectTimeout: 5000
+
+#Fegin日志配置
+logging:
+  level:
+    com.atguigu.springcloud.service.PaymentFeignService: debug

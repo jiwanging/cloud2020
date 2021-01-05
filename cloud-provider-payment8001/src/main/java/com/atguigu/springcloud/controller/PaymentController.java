@@ -16,6 +16,7 @@ import sun.rmi.runtime.Log;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 @Slf4j
@@ -81,6 +82,7 @@ public class PaymentController {
     }
 
     @GetMapping(value = "/payment/discovery")
+    @ResponseBody
     public Object discovery(){
         List<String> services = discoveryClient.getServices();
         for (String element : services) {
@@ -91,5 +93,20 @@ public class PaymentController {
             log.info(instance.getServiceId()+"\t"+instance.getHost()+"\t"+instance.getPort()+"\t"+instance.getUri());
         }
         return this.discoveryClient;
+    }
+
+    /**
+     * 为测试fegin超时写的超时程序
+     */
+    @GetMapping(value = "/payment/fegin/timeout")
+    @ResponseBody
+    public String paymentFeignTimeout(){
+        try {
+            log.info("超时响应请求开始");
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "超时响应";
     }
 }
