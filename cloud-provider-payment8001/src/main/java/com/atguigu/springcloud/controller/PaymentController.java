@@ -98,7 +98,7 @@ public class PaymentController {
     /**
      * 为测试fegin超时写的超时程序
      */
-    @GetMapping(value = "/payment/fegin/timeout")
+    @GetMapping(value = "/payment/feign/timeout")
     @ResponseBody
     public String paymentFeignTimeout(){
         try {

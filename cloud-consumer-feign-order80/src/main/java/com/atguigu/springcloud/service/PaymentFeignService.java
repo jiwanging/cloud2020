@@ -18,6 +18,6 @@ public interface PaymentFeignService {
      * 测试fegin超时机制的程序
      * @return
      */
-    @GetMapping(value = "/payment/fegin/timeout")
+    @GetMapping(value = "/payment/feign/timeout")
     public String paymentFeignTimeout();
 }

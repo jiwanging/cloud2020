@@ -22,7 +22,7 @@ public class OrderFeignController {
         return paymentFeignService.get(id);
     }
 
-    @GetMapping(value = "/consumer/payment/fegin/timeout")
+    @GetMapping(value = "/consumer/payment/feign/timeout")
     public String paymentFeignTimeout(){
         log.info("测试fegin接口超时请求");
         return paymentFeignService.paymentFeignTimeout();
