@@ -3,14 +3,10 @@ package com.atguigu.springcloud.controller;
 import com.atguigu.springcloud.entities.CommonResult;
 import com.atguigu.springcloud.entities.Payment;
 import com.atguigu.springcloud.service.PaymentService;
-import com.sun.corba.se.impl.orbutil.ObjectUtility;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.annotation.RequestScope;
-import sun.rmi.runtime.Log;
 
 import javax.annotation.Resource;
 
@@ -72,5 +68,14 @@ public class PaymentController {
         }
         log.info(commonResult.toString());
         return commonResult;
+    }
+
+    /**
+     * 向外提供本例端口号
+     */
+    @GetMapping(value = "/payment/lb")
+    @ResponseBody
+    public String getPort(){
+        return serverPort;
     }
 }
