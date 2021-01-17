@@ -3,12 +3,13 @@ package com.atguigu.springcloud.controller;
 import com.atguigu.springcloud.entities.CommonResult;
 import com.atguigu.springcloud.entities.Payment;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.context.annotation.RequestScope;
 
 import javax.annotation.Resource;
 
@@ -51,6 +52,13 @@ public class OrderController {
         return commonResult;
     }
 
+    @GetMapping(value = "/consumer/payment/zipkin")
+    @ResponseBody
+    public String paymentZipkin()
+    {
+        String result = restTemplate.getForObject("http://CLOUD-PAYMENT-SERVICE"+"/payment/zipkin", String.class);
+        return "哈哈啊哈哈哈：   "+result;
+    }
 
 
 }
